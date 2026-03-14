@@ -17,7 +17,7 @@ import {
 } from "../consts/routes.super_admin";
 import PageLayout from "../../layout/PageLayout";
 import Dashboard from "../pages/Dashboard";
-import UsersManagement from "../pages/UsersManagement";
+import UsersManagement from "../../layout/UsersManagement";
 import Profile from "../pages/Profile";
 import Settings from "../pages/Settings";
 import Logs from "../pages/Logs";

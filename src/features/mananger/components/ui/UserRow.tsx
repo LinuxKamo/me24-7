@@ -5,7 +5,7 @@ type UserRowProps = {
   name: string;
   surname: string;
   email: string;
-  role: "Admin" | "media" | "driver" | "forman" | "normal user";
+  role: string;
 };
 
 function UserRow({ name, surname, email, role }: UserRowProps) {
@@ -21,10 +21,12 @@ function UserRow({ name, surname, email, role }: UserRowProps) {
     { rolename: "normal user", icon: User },
   ];
 
-  const activeRole = roles.find(r => r.rolename === selectedRole);
+  const activeRole = roles.find((r) => r.rolename === selectedRole);
   const ActiveIcon = activeRole?.icon || User;
 
-  const changeRole = (newRole: "Admin" | "media" | "driver" | "forman" | "normal user") => {
+  const changeRole = (
+    newRole: "Admin" | "media" | "driver" | "forman" | "normal user",
+  ) => {
     setSelectedRole(newRole);
     setOpen(false);
 
@@ -33,7 +35,6 @@ function UserRow({ name, surname, email, role }: UserRowProps) {
 
   return (
     <div className="flex items-center justify-between bg-white border border-neutral-200 rounded-2xl px-5 py-3 shadow-sm relative">
-
       {/* LEFT SIDE */}
       <div className="flex items-center gap-4">
         <div className="h-10 w-10 rounded-full bg-neutral-200 flex items-center justify-center font-semibold text-neutral-700">
@@ -50,7 +51,6 @@ function UserRow({ name, surname, email, role }: UserRowProps) {
 
       {/* ROLE DROPDOWN */}
       <div className="relative">
-
         <button
           onClick={() => setOpen(!open)}
           className="flex items-center gap-2 px-4 py-2 rounded-xl border border-neutral-200 bg-neutral-50 text-xs font-medium hover:bg-neutral-100 transition"
@@ -62,7 +62,6 @@ function UserRow({ name, surname, email, role }: UserRowProps) {
 
         {open && (
           <div className="absolute right-0 mt-2 w-40 bg-white border border-neutral-200 rounded-xl shadow-lg overflow-hidden z-50">
-
             {roles.map((option, index) => {
               const Icon = option.icon;
 
@@ -77,10 +76,8 @@ function UserRow({ name, surname, email, role }: UserRowProps) {
                 </button>
               );
             })}
-
           </div>
         )}
-
       </div>
     </div>
   );
