@@ -11,7 +11,7 @@ function Sidebar({ list, role }: { list: MenuItem[]; role: string }) {
     <aside
       className={`hidden lg:flex fixed left-0 top-0 h-screen ${
         collapsed ? "w-30" : "w-70"
-      } bg-white border-r border-slate-200/60 flex-col z-40 transition-all duration-300`}
+      } bg-white border-r border-slate-200/60 flex-col z-40 transition-all duration-300 overflow-y-auto`}
     >
       {/* HEADER */}
       <div className="p-6 flex items-center justify-between">

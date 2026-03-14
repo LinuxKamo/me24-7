@@ -16,7 +16,9 @@ function InputField({
 }: InputFieldProps) {
   return (
     <div className="flex flex-col space-y-2">
-      <label className="text-xs font-semibold text-neutral-500/70">{label}</label>
+      <label className="text-xs font-semibold text-neutral-500/70">
+        {label}
+      </label>
       <input
         type={type || "text"}
         value={value}

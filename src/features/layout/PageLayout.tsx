@@ -10,7 +10,9 @@ import {
   User,
   Settings,
   Activity,
-  Users
+  Users,
+  Workflow,
+  HousePlus,
 } from "lucide-react";
 import type { MenuItem } from "./menuItem";
 import { useLocation } from "react-router-dom";
@@ -23,6 +25,8 @@ import {
   SUPER_ADMIN_LOGS,
   SUPER_ADMIN_ANALYTICS,
   SUPER_ADMIN_AREAS,
+  SUPER_ADMIN_DEPARTMENT,
+  SUPER_ADMIN_MUNICIPALITY,
 } from "../super_admin/consts/routes.super_admin";
 import {
   MANANGER_ANALYTICS,
@@ -134,6 +138,16 @@ function PageLayout() {
       url: SUPER_ADMIN_ANNOUNCEMENTS,
     },
     {
+      name: "Departments",
+      icon: Workflow,
+      url: SUPER_ADMIN_DEPARTMENT,
+    },
+    {
+      name: "Municipalities",
+      icon: HousePlus,
+      url: SUPER_ADMIN_MUNICIPALITY,
+    },
+    {
       name: "Areas",
       icon: MapPin,
       url: SUPER_ADMIN_AREAS,
@@ -169,7 +183,7 @@ function PageLayout() {
   if (location.pathname.startsWith("/admin")) {
     currentNav = superAdminNav;
     currentRole = "super_admin";
-  } else if (location.pathname.startsWith("/media")) {  
+  } else if (location.pathname.startsWith("/media")) {
     currentNav = mediaTeamNav;
     currentRole = "media_team";
   } else if (location.pathname.startsWith("/forman")) {
