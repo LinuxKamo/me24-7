@@ -193,9 +193,9 @@ function Areas() {
         <Popup isOpen={openCreate} onClose={() => setOpenCreate(!openCreate)}>
           <div className="space-y-4">
             <InputField
-              label="Town Name"
+              label="Municipality"
               value={form.name}
-              placeholder="e.g. North District"
+              placeholder="e.g. Municipality of Vosloorus"
               onChange={(v) => setForm((prev) => ({ ...prev, name: v }))}
             />
             <InputField

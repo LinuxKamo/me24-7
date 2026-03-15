@@ -22,10 +22,10 @@ function InputFieldDropDown({
       </label>
 
       <select
-      title={label}
+        title={label}
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
-        className="border-3 border-neutral-400/30 active:outline-neutral-600 focus:outline-neutral-500 w-full rounded-lg px-4 py-1 focus:ring-0 bg-white text-neutral-500/90 text-xs"
+        className="border-3 border-neutral-400/30 active:outline-neutral-600 focus:outline-neutral-500 w-full rounded-lg px-4 py-2 focus:ring-0 bg-white text-neutral-500/90 text-xs"
       >
         {/* Placeholder */}
         <option value="" disabled hidden>
@@ -33,7 +33,11 @@ function InputFieldDropDown({
         </option>
 
         {options.map((option) => (
-          <option className="text-neutral-800" key={option.value} value={option.value}>
+          <option
+            className="text-neutral-800"
+            key={option.value}
+            value={option.value}
+          >
             {option.label}
           </option>
         ))}

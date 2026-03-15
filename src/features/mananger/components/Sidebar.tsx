@@ -54,6 +54,7 @@ function Sidebar({ list, role }: { list: MenuItem[]; role: string }) {
             <Link
               key={_i}
               to={item.url}
+              title={item.name}
               className={`flex items-center ${
                 collapsed ? "justify-center" : "gap-3"
               } px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${

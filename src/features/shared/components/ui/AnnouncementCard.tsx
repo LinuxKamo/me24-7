@@ -1,4 +1,12 @@
-import { MapPin, MessageCircle, Send, ThumbsUp, MoreVertical, Edit, Trash2 } from "lucide-react";
+import {
+  MapPin,
+  MessageCircle,
+  Send,
+  ThumbsUp,
+  MoreVertical,
+  Edit,
+  Trash2,
+} from "lucide-react";
 import { memo, useEffect, useState } from "react";
 import { formatAnnouncementDate } from "../../../mananger/utils/date";
 
@@ -53,7 +61,7 @@ function AnnouncementCard({
     setComment("");
   };
   return (
-    <div className="flex flex-col h-auto p-5 border border-neutral-400/20 space-y-5 rounded-2xl bg-white w-full">
+    <div className="flex flex-col h-auto p-5 border border-neutral-400/40 space-y-5 rounded-2xl bg-white w-full">
       <div className="flex justify-between items-start w-full">
         <div className="flex flex-row space-x-2">
           <div className="bg-linear-to-br from-blue-600 to-blue-900 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
@@ -68,15 +76,15 @@ function AnnouncementCard({
         </div>
         {canManage && (
           <div className="relative">
-            <button 
-              onClick={() => setShowOptions(!showOptions)} 
+            <button
+              onClick={() => setShowOptions(!showOptions)}
               className="p-1 rounded-full hover:bg-neutral-100 transition-colors"
             >
               <MoreVertical className="size-5 text-neutral-500" />
             </button>
             {showOptions && (
               <div className="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border border-neutral-200 z-10 py-1">
-                <button 
+                <button
                   className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"
                   onClick={() => setShowOptions(false)}
                 >
@@ -84,7 +92,7 @@ function AnnouncementCard({
                   Edit
                 </button>
                 <div className="h-px bg-neutral-200 my-1 mx-2" />
-                <button 
+                <button
                   className="w-full flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
                   onClick={() => setShowOptions(false)}
                 >
@@ -163,19 +171,27 @@ function AnnouncementCard({
           </div>
         </div>
         {commentSectionOpen && (
-          <div className={`relative mt-5 space-y-3 h-fit overflow-scroll overflow-x-hidden`}>
+          <div
+            className={`relative mt-5 space-y-3 h-fit overflow-scroll overflow-x-hidden`}
+          >
             <div className="flex flex-col space-y-3 mb-15">
-              {comments ? comments.map((c, i) => (
-                <div key={i} className="flex flex-col space-y-1">
-                  <div className="flex items-center gap-2 space-x-2">
-                    <div className="bg-linear-to-br from-blue-600 to-blue-900 h-6 w-6 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                      {c.username.charAt(0)}
+              {comments ? (
+                comments.map((c, i) => (
+                  <div key={i} className="flex flex-col space-y-1">
+                    <div className="flex items-center gap-2 space-x-2">
+                      <div className="bg-linear-to-br from-blue-600 to-blue-900 h-6 w-6 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                        {c.username.charAt(0)}
+                      </div>
+                      <span className="text-xs font-semibold">
+                        {c.username}
+                      </span>
                     </div>
-                    <span className="text-xs font-semibold">{c.username}</span>
+                    <p className="text-xs ml-10">{c.comment}</p>
                   </div>
-                  <p className="text-xs ml-10">{c.comment}</p>
-                </div>
-              )): <div> no comments</div>}
+                ))
+              ) : (
+                <div> no comments</div>
+              )}
             </div>
             <div className="flex flex-row absolute bottom-0 w-full space-x-5">
               <input

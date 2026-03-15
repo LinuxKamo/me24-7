@@ -8,11 +8,11 @@ import {
   Megaphone,
   Truck,
   User,
-  Settings,
   Activity,
   Users,
   Workflow,
   HousePlus,
+  Bell,
 } from "lucide-react";
 import type { MenuItem } from "./menuItem";
 import { useLocation } from "react-router-dom";
@@ -21,12 +21,12 @@ import {
   SUPER_ADMIN_USERS,
   SUPER_ADMIN_ANNOUNCEMENTS,
   SUPER_ADMIN_PROFILE,
-  SUPER_ADMIN_SETTINGS,
   SUPER_ADMIN_LOGS,
   SUPER_ADMIN_ANALYTICS,
   SUPER_ADMIN_AREAS,
   SUPER_ADMIN_DEPARTMENT,
   SUPER_ADMIN_MUNICIPALITY,
+  SUPER_ADMIN_NOTIFICATIONS,
 } from "../super_admin/consts/routes.super_admin";
 import {
   MANANGER_ANALYTICS,
@@ -34,6 +34,7 @@ import {
   MANANGER_AREAS,
   MANANGER_DASHBOARD,
   MANANGER_DRIVERS,
+  MANANGER_NOTIFICATIONS,
   MANANGER_PROFILE,
   MANANGER_TRIPTRACKING,
   MANANGER_USERS,
@@ -76,6 +77,11 @@ function PageLayout() {
       name: "Profile",
       icon: Megaphone,
       url: MEDIA_PROFILE,
+    },
+    {
+      name: "Notifications",
+      icon: Bell,
+      url: MANANGER_NOTIFICATIONS,
     },
   ];
   const formanNav: MenuItem[] = [
@@ -120,6 +126,11 @@ function PageLayout() {
       icon: User,
       url: MANANGER_PROFILE,
     },
+    {
+      name: "Notifications",
+      icon: Bell,
+      url: MANANGER_NOTIFICATIONS,
+    },
   ];
   const superAdminNav: MenuItem[] = [
     {
@@ -157,11 +168,11 @@ function PageLayout() {
       icon: User,
       url: SUPER_ADMIN_PROFILE,
     },
-    {
-      name: "Settings",
-      icon: Settings,
-      url: SUPER_ADMIN_SETTINGS,
-    },
+    // {
+    //   name: "Settings",
+    //   icon: Settings,
+    //   url: SUPER_ADMIN_SETTINGS,
+    // },
     {
       name: "Logs",
       icon: Activity,
@@ -171,6 +182,11 @@ function PageLayout() {
       name: "Analytics",
       icon: ChartArea,
       url: SUPER_ADMIN_ANALYTICS,
+    },
+    {
+      name: "Notifications",
+      icon: Bell,
+      url: SUPER_ADMIN_NOTIFICATIONS,
     },
   ];
 
@@ -197,7 +213,7 @@ function PageLayout() {
       <Sidebar list={currentNav} role={currentRole} />
       {/* Main Content Area */}
       <main
-        className={`${!collapsed ? "ml-70" : "ml-30"}  lg:px-10 flex-1 overflow-y-auto space-y-3 pt-10 pb-10`}
+        className={`${!collapsed ? "ml-70" : "ml-30"}  lg:px-10 flex-1 overflow-y-auto space-y-3 pt-10 pb-10  transition-all duration-300`}
       >
         <Outlet />
       </main>

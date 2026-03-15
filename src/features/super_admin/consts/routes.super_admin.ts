@@ -17,3 +17,4 @@ export const SUPER_ADMIN_USER_INVITE = "/admin/user/invite";
 export const SUPER_ADMIN_MUNICIPALITY_DETAILS = "/admin/municipality/:_id";
 export const SUPER_ADMIN_MUNICIPALITY_DETAILS_BYID = (id: string) =>
   `/admin/municipality/${id}`;
+export const SUPER_ADMIN_NOTIFICATIONS = "/admin/notifications";

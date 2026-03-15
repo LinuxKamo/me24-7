@@ -7,7 +7,7 @@ import Popup from "../../shared/components/Popup";
 import InputField from "../../shared/components/ui/InputField";
 import MunicipalityCard from "../components/ui/MunicipalityCard";
 
-function Municipality() {
+function MunicipalityPage() {
   const [municipalities, setMunicipalities] = useState<Municipality[]>([
     {
       _id: "1",
@@ -211,7 +211,10 @@ function Municipality() {
                   color="bg-red-500"
                 />
 
-                <ActionButton label={isEditing ? "Update" : "Create"} />
+                <ActionButton
+                  label={isEditing ? "Update" : "Create"}
+                  isDisabled={true}
+                />
               </div>
             </form>
           </div>
@@ -254,4 +257,4 @@ function Municipality() {
   );
 }
 
-export default Municipality;
+export default MunicipalityPage;

@@ -36,9 +36,7 @@ function AreaRow({ area, announcementNumber }: AreaRowParam) {
   const handleDelete = async (area: Area) => {
     if (!confirm(`Delete area "${area.name}"?`)) return;
 
-
     // TODO: call API here
-
   };
 
   const addSection = () => {
@@ -47,9 +45,9 @@ function AreaRow({ area, announcementNumber }: AreaRowParam) {
 
     // Create a temporary section object with a generated _id
     const newSection: Section = {
-        _id: Date.now().toString(), // temporary id, replace with real from API
-        name: trimmed,
-        image_url: []
+      _id: Date.now().toString(), // temporary id, replace with real from API
+      name: trimmed,
+      image_url: [],
     };
 
     setForm((prev) => ({
@@ -93,7 +91,7 @@ function AreaRow({ area, announcementNumber }: AreaRowParam) {
             <div className="flex flex-col justify-between">
               <p>
                 <span className="text-sm font-semibold">{area.name}</span>{" "}
-                <span className="bg-neutral-500/20 text-black/60 py-1 px-2 text-xs rounded-lg">
+                <span className="bg-black/60 text-white font-semibold py-1 px-2 text-xs rounded-lg">
                   {announcementNumber ?? 0} post monthly
                 </span>
               </p>
