@@ -26,7 +26,7 @@ import Notifications from "../../shared/pages/Notifications";
 
 export const ManangerRoutes = () => {
   return (
-    <Route path="/mananger" element={<PageLayout />}>
+    <Route path="/manager" element={<PageLayout />}>
       <Route index element={<Dashboard />} />
       <Route path={MANANGER_USERS} element={<Users />} />
       <Route path={MANANGER_DRIVERS} element={<Drivers />} />

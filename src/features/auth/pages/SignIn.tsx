@@ -1,11 +1,26 @@
 import { memo } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { LogIn } from "lucide-react";
 import InputField from "../../shared/components/ui/InputField";
 import ActionButton from "../../shared/components/ui/ActionButton";
-import { LogIn } from "lucide-react";
-import { Link } from "react-router-dom";
 import { SIGN_UP } from "../consts/routes.auth";
+import { useRoleSelection, type Role } from "../../shared/context/roleselection.context";
 
 function SignIn() {
+  const { currentRole, setRole } = useRoleSelection();
+  const navigate = useNavigate();
+
+  const handleSignIn = () => {
+    console.log("Signing in as:", currentRole);
+    // Basic redirection logic based on role
+    if (currentRole === 'superadmin') {
+      navigate('/admin');
+    } else if (currentRole === 'manager') {
+      navigate('/manager');
+    } else if (currentRole === 'mediateam') {
+      navigate('/media');
+    }
+  };
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#f8fafc] p-4 relative overflow-hidden">
       {/* Background Decor */}
@@ -35,6 +50,27 @@ function SignIn() {
             type="password"
           />
 
+          <div className="flex flex-col space-y-2">
+            <label className="text-xs font-bold text-[#1e293b] uppercase tracking-wider ml-1">
+              Select Role
+            </label>
+            <select
+              value={currentRole}
+              onChange={(e) => setRole(e.target.value as Role)}
+              className="w-full h-12 px-4 bg-white border border-neutral-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-[#0f4c81]/20 focus:border-[#0f4c81] outline-hidden transition-all appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='螺旋状的向下箭头'/%3E%3Cpath d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 1rem center',
+                backgroundSize: '1.25rem'
+              }}
+            >
+              <option value="manager">Manager</option>
+              <option value="superadmin">Super Admin</option>
+              <option value="mediateam">Media Team</option>
+            </select>
+          </div>
+
           <div className="flex items-center justify-between py-1">
             <label className="flex items-center space-x-2 cursor-pointer">
               <input
@@ -55,7 +91,7 @@ function SignIn() {
             <ActionButton
               label="Sign In"
               Icon={LogIn}
-              onClick={() => {}}
+              onClick={handleSignIn}
               color="bg-[#0f4c81]"
             />
           </div>

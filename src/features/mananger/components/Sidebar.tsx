@@ -1,10 +1,13 @@
 import { Droplets, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
 import { memo } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import type { MenuItem } from "../../layout/menuItem";
 import { useCollapse } from "../../shared/context/collapse.context";
-function Sidebar({ list, role }: { list: MenuItem[]; role: string }) {
+import { useRoleSelection } from "../../shared/context/roleselection.context";
+function Sidebar({ list }: { list: MenuItem[] }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { currentRole } = useRoleSelection();
   const { collapsed, toggleSidebar } = useCollapse();
 
   return (
@@ -15,7 +18,10 @@ function Sidebar({ list, role }: { list: MenuItem[]; role: string }) {
     >
       {/* HEADER */}
       <div className="p-6 flex items-center justify-between">
-        <div className="flex items-center gap-3 overflow-hidden">
+        <div
+          className="flex items-center gap-3 overflow-hidden"
+          onClick={() => navigate("/")}
+        >
           <div className="h-10 w-10 rounded-xl bg-linear-to-br from-[#0f4c81] to-[#38bdf8] flex items-center justify-center shadow-lg shadow-[#0f4c81]/20">
             <Droplets className="h-5 w-5 text-white" />
           </div>
@@ -23,10 +29,10 @@ function Sidebar({ list, role }: { list: MenuItem[]; role: string }) {
           {!collapsed && (
             <div>
               <span className="font-bold text-slate-900 tracking-tight text-lg">
-                MarkWater
+                MetroLink
               </span>
               <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">
-                {role} dashboard
+                {currentRole} dashboard
               </p>
             </div>
           )}

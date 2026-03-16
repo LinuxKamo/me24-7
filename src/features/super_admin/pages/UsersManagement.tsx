@@ -1,13 +1,12 @@
 import { memo, useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import ActionButton from "../../shared/components/ui/ActionButton";
-import { Plus, Users, Building2, Layers } from "lucide-react";
+import { Plus, Users, Layers } from "lucide-react";
 import InputField from "../../shared/components/ui/InputField";
 import Popup from "../../shared/components/Popup";
 import InputFieldDropDown from "../../mananger/components/ui/InputFieldDropDown";
 import {
   SUPER_ADMIN_USERS,
-  SUPER_ADMIN_USERS_DEPARTMENT,
   SUPER_ADMIN_USERS_MUNICIPALITY,
 } from "../consts/routes.super_admin";
 
@@ -29,11 +28,6 @@ function UsersManagement() {
 
   const tabs = [
     { name: "All", path: SUPER_ADMIN_USERS, icon: Layers },
-    {
-      name: "Departments",
-      path: SUPER_ADMIN_USERS_DEPARTMENT,
-      icon: Building2,
-    },
     {
       name: "Municipalities",
       path: SUPER_ADMIN_USERS_MUNICIPALITY,

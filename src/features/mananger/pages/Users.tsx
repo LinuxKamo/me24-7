@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import ActionButton from "../../shared/components/ui/ActionButton";
-import { ChevronDown, Shield, Truck, User, UserRoundPlus } from "lucide-react";
+import { ChevronDown, Truck, User, UserRoundPlus } from "lucide-react";
 import SearchBar from "../components/ui/SearchBar";
 import UserRow from "../components/ui/UserRow";
 import Popup from "../../shared/components/Popup";
@@ -25,7 +25,7 @@ function Users() {
       name: "John",
       surname: "Doe",
       email: "john@demo.com",
-      role: "Admin",
+      role: "driver",
     },
     {
       name: "Peter",
@@ -43,7 +43,7 @@ function Users() {
       name: "Sarah",
       surname: "Williams",
       email: "sarah@demo.com",
-      role: "Admin",
+      role: "driver",
     },
   ];
 
@@ -59,7 +59,6 @@ function Users() {
   });
 
   const roles = [
-    { rolename: "Admin", icon: Shield },
     { rolename: "media", icon: User },
     { rolename: "driver", icon: Truck },
   ];
@@ -85,35 +84,38 @@ function Users() {
             <h1 className="text-2xl font-semibold">Invite a user</h1>
             <InputField label="Email Address" placeholder="user@example.com" />
             <div className="flex flex-col space-y-2 relative">
-              <span className="text-xs font-semibold text-neutral-500/70">Select use role:</span><button
-              onClick={() => setOpen(!open)}
-              className="flex items-center justify-between gap-2 px-4 w-full py-2 rounded-xl border border-neutral-200 bg-neutral-50 text-xs font-medium hover:bg-neutral-100 transition"
-            >
-              <ActiveIcon className="h-4 w-4 text-neutral-600" />
-              {selectedRole}
-              <ChevronDown className="h-4 w-4 text-neutral-500" />
-            </button>
+              <span className="text-xs font-semibold text-neutral-500/70">
+                Select use role:
+              </span>
+              <button
+                onClick={() => setOpen(!open)}
+                className="flex items-center justify-between gap-2 px-4 w-full py-2 rounded-xl border border-neutral-200 bg-neutral-50 text-xs font-medium hover:bg-neutral-100 transition"
+              >
+                <ActiveIcon className="h-4 w-4 text-neutral-600" />
+                {selectedRole}
+                <ChevronDown className="h-4 w-4 text-neutral-500" />
+              </button>
 
-            {open && (
-              <div className="absolute right-0 top-16 mt-2 w-full bg-white border border-neutral-200 rounded-xl shadow-lg overflow-hidden z-50">
-                {roles.map((option, index) => {
-                  const Icon = option.icon;
+              {open && (
+                <div className="absolute right-0 top-16 mt-2 w-full bg-white border border-neutral-200 rounded-xl shadow-lg overflow-hidden z-50">
+                  {roles.map((option, index) => {
+                    const Icon = option.icon;
 
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => changeRole(option.rolename as any)}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-neutral-100 transition"
-                    >
-                      <Icon className="h-4 w-4 text-neutral-600" />
-                      {option.rolename}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => changeRole(option.rolename as any)}
+                        className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-neutral-100 transition"
+                      >
+                        <Icon className="h-4 w-4 text-neutral-600" />
+                        {option.rolename}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
-            <ActionButton label="Send invite" isDisabled={true}/>
+            <ActionButton label="Send invite" isDisabled={true} />
           </div>
         </Popup>
       )}

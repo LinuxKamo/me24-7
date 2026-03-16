@@ -1,4 +1,4 @@
-import { ChevronDown, Shield, Truck, User } from "lucide-react";
+import { ChevronDown, Truck, User } from "lucide-react";
 import { memo, useState } from "react";
 
 type UserRowProps = {
@@ -14,19 +14,14 @@ function UserRow({ name, surname, email, role }: UserRowProps) {
   const [selectedRole, setSelectedRole] = useState(role);
 
   const roles = [
-    { rolename: "Admin", icon: Shield },
-    { rolename: "Forman", icon: Shield },
     { rolename: "media", icon: User },
     { rolename: "driver", icon: Truck },
-    { rolename: "normal user", icon: User },
   ];
 
   const activeRole = roles.find((r) => r.rolename === selectedRole);
   const ActiveIcon = activeRole?.icon || User;
 
-  const changeRole = (
-    newRole: "Admin" | "media" | "driver" | "forman" | "normal user",
-  ) => {
+  const changeRole = (newRole: "media" | "driver") => {
     setSelectedRole(newRole);
     setOpen(false);
 
