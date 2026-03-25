@@ -37,7 +37,7 @@ function DriverCard({
           image_url: ["./mask.png", "./mask.png", "./mask.png"],
         },
         { _id: 2, name: "Section 2", image_url: ["./mask.png"] },
-        ],
+      ],
     },
     {
       _id: 2,
@@ -148,12 +148,15 @@ function DriverCard({
       setSelectedSections([...selectedSections, section]);
     }
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <>
-      <div className="p-4 rounded-2xl border border-neutral-400/20 bg-white/80 flex flex-col space-y-4">
-        <div onClick={()=> navigate(MANANGER_DRIVER_PROFILE_DETAIL("1"))} className="flex flex-row justify-between items-center">
+      <div className="p-4 rounded-2xl border border-neutral-400/20 bg-white/80 flex flex-col space-y-4 hover:bg-neutral-400/5">
+        <div
+          onClick={() => navigate(MANANGER_DRIVER_PROFILE_DETAIL("1"))}
+          className="flex flex-row justify-between items-center cursor-pointer"
+        >
           <div className="flex flex-row space-x-4">
             <div className="bg-linear-to-br from-blue-600 to-blue-900 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
               <span>{initials}</span>
@@ -261,9 +264,9 @@ function DriverCard({
                   </div>
                 </div>
               )}
-              <InputField label="Date" type="datetime-local"/>
+              <InputField label="Date" type="datetime-local" />
             </div>
-            <ActionButton label="Assign Trip" isDisabled={true}/>
+            <ActionButton label="Assign Trip" isDisabled={true} />
           </div>
         </Popup>
       )}

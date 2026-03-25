@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import type { Area } from "../../models/Area.model";
 import { Clock, MapPin } from "lucide-react";
 import { formatAnnouncementDate } from "../../utils/date";
@@ -10,13 +10,17 @@ interface TripCardProps {
   name?: string;
   area: Area;
   status: "on trip" | "available";
-  updateAt:string
+  updateAt: string;
 }
-function TripCard({ initials, name, area, status,updateAt }: TripCardProps) {
-  const navigate = useNavigate()
+function TripCard({ initials, name, area, status, updateAt }: TripCardProps) {
+  const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   return (
     <div className="p-4 border border-neutral-400/20 rounded-2xl bg-white flex flex-col space-y-4">
-      <div className="flex flex-row justify-between items-center space-y-2 p-4" onClick={()=>navigate(MANANGER_DRIVER_PROFILE_DETAIL("1"))}>
+      <div
+        className="flex flex-row justify-between items-center space-y-2 p-4 cursor-pointer"
+        onClick={() => navigate(MANANGER_DRIVER_PROFILE_DETAIL("1"))}
+      >
         <div className="flex flex-row space-x-2">
           <div className="bg-linear-to-br from-blue-600 to-blue-900 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
             {initials && <span>{initials}</span>}
@@ -44,23 +48,53 @@ function TripCard({ initials, name, area, status,updateAt }: TripCardProps) {
               <div className="flex flex-row space-x-3 items-center border-b-3 border-neutral-400/30 pb-3">
                 <MapPin className="size-4" />
                 <span>{section.name} </span>
-                <Clock className="size-3" /> <span>{formatAnnouncementDate(updateAt)}</span>
+                <Clock className="size-3" />{" "}
+                <span>{formatAnnouncementDate(updateAt)}</span>
               </div>
               <div className="grid grid-cols-2 gap-1">
-                {section.image_url.length>0 ?
+                {section.image_url.length > 0 ? (
                   section.image_url.length > 0 &&
                   section.image_url.map((image, index) => (
                     <img
                       key={index}
                       src={image}
                       alt={section.name}
-                      className="w-full object-cover rounded-lg mt-4"
+                      onClick={() => setSelectedImage(image)}
+                      className="w-full object-cover rounded-lg mt-4 cursor-pointer hover:scale-105 transition-transform duration-200"
                     />
-                  )):<div className="p-5 text-center">No update yet</div>}
+                  ))
+                ) : (
+                  <div className="p-5 text-center">No update yet</div>
+                )}
               </div>
             </div>
           ))}
       </div>
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="relative max-w-4xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={selectedImage}
+              alt="Preview"
+              className="w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl"
+            />
+
+            {/* Close button */}
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-4 -right-4 bg-white text-black rounded-full h-10 w-10 flex items-center justify-center shadow-lg"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

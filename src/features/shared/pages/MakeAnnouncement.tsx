@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, Upload, Loader2, Send, Globe, MapPin } from "lucide-react";
+import {
+  ArrowLeft,
+  Upload,
+  Loader2,
+  Send,
+  Globe,
+  MapPin,
+  X,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { MANANGER_ANNOUNCEMENTS } from "../../mananger/consts/route.mananger";
 
@@ -25,7 +33,11 @@ type FormState = {
 export default function MakeAnnouncement() {
   const [areas, setAreas] = useState<Area[]>([]);
   const [user, setUser] = useState<User | null>(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const removeMedia = (index: number) => {
+    setMediaFiles((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const [form, setForm] = useState<FormState>({
     message: "",
@@ -132,10 +144,14 @@ export default function MakeAnnouncement() {
   const availableSections = selectedAreas.flatMap((a) => a.sections);
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <>
       {/* Header */}
       <div className="flex items-center gap-3">
-        <button onClick={()=>navigate(MANANGER_ANNOUNCEMENTS)} title="back" className="p-2 rounded-xl hover:bg-slate-100 transition-colors">
+        <button
+          onClick={() => navigate(MANANGER_ANNOUNCEMENTS)}
+          title="back"
+          className="p-2 rounded-xl hover:bg-slate-100 transition-colors"
+        >
           <ArrowLeft className="h-5 w-5 text-slate-600" />
         </button>
 
@@ -186,7 +202,15 @@ export default function MakeAnnouncement() {
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 }`}
               >
-                {v === "public" ? <div className="text-xs flex flex-row space-x-3 items-center"><Globe className="size-4"/> <span>Global</span></div> : <div className="text-xs flex flex-row space-x-3 items-center"><MapPin className="size-4"/> <span>Specific Area</span></div> }
+                {v === "public" ? (
+                  <div className="text-xs flex flex-row space-x-3 items-center">
+                    <Globe className="size-4" /> <span>Global</span>
+                  </div>
+                ) : (
+                  <div className="text-xs flex flex-row space-x-3 items-center">
+                    <MapPin className="size-4" /> <span>Specific Area</span>
+                  </div>
+                )}
               </button>
             ))}
           </div>
@@ -245,9 +269,7 @@ export default function MakeAnnouncement() {
 
           <textarea
             value={form.message}
-            onChange={(e) =>
-              setForm({ ...form, message: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, message: e.target.value })}
             placeholder="Write your announcement..."
             className="w-full rounded-xl min-h-35 resize-none border border-slate-200 p-3"
           />
@@ -281,14 +303,28 @@ export default function MakeAnnouncement() {
 
         {/* Preview images */}
         {mediaFiles.length > 0 && (
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-2">
             {mediaFiles.map((url, i) => (
-              <img
-              alt="image"
+              <div
                 key={i}
-                src={url}
-                className="w-full h-24 object-cover rounded-lg"
-              />
+                className="relative"
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <img
+                  src={url}
+                  className="w-full h-32 object-cover rounded-lg"
+                />
+
+                {hoveredIndex === i && (
+                  <button
+                    onClick={() => removeMedia(i)}
+                    className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full shadow"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
             ))}
           </div>
         )}
@@ -307,6 +343,6 @@ export default function MakeAnnouncement() {
           Post Announcement
         </button>
       </div>
-    </div>
+    </>
   );
 }

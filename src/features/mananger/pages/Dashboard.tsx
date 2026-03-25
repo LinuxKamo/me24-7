@@ -44,14 +44,24 @@ function Dashboard() {
             Latest updates and news for your areas
           </span>
         </div>
-        <button className="flex flex-row space-x-3 items-center border-2 border-neutral-500/20 px-3 py-1 rounded-lg text-xs font-medium text-neutral-600/80 lg:h-10 bg-white">
+        <button className="flex flex-row space-x-3 items-center border border-neutral-500/20 px-3 py-1 rounded-lg text-xs font-medium text-neutral-600/80 lg:h-10 bg-white">
           <ArrowUpDown className="size-4" />
           <span>Newest first</span>
         </button>
       </div>
       <div className="space-y-5 mt-5 flex flex-col justify-center items-center">
         <AnnouncementCard
-          Areas={["Mailula", "Mabopane", "Soshanguve", "Garankuwa", "Pretoria", "Mabopane", "Soshanguve", "Garankuwa", "Pretoria"]}
+          Areas={[
+            "Mailula",
+            "Mabopane",
+            "Soshanguve",
+            "Garankuwa",
+            "Pretoria",
+            "Mabopane",
+            "Soshanguve",
+            "Garankuwa",
+            "Pretoria",
+          ]}
           sections={[
             "Section 1",
             "Section 2",
@@ -109,7 +119,21 @@ function Dashboard() {
           date="2026-02-18"
           announcerName="John Doe"
           Initials="JD"
-          imageurl={[image,image,image,image,image,image,image,image,image,image,image,image,image]}
+          imageurl={[
+            image,
+            image,
+            image,
+            image,
+            image,
+            image,
+            image,
+            image,
+            image,
+            image,
+            image,
+            image,
+            image,
+          ]}
           canManage={true}
         />
         <AnnouncementCard

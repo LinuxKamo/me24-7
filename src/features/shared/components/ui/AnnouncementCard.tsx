@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { memo, useEffect, useState } from "react";
 import { formatAnnouncementDate } from "../../../mananger/utils/date";
+import Popup from "../Popup";
 
 interface AnnouncementCardProps {
   Initials: string;
@@ -35,13 +36,15 @@ function AnnouncementCard({
   imageurl,
   canManage,
 }: AnnouncementCardProps) {
+  const [areasPopupOpen, setAreasPopupOpen] = useState(false);
+  const [sectionsPopupOpen, setSectionsPopupOpen] = useState(false);
   const [commentSectionOpen, setCommentSectionOpen] = useState<boolean>(false);
   const [commentsCountState, setCommentsCountState] = useState<number>(
     commentsCount || 0,
   );
   const [comment, setComment] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [optionsOpen, setOptionsOpen] = useState<boolean>(false);
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelectedImage(null);
@@ -77,30 +80,11 @@ function AnnouncementCard({
         {canManage && (
           <div className="relative">
             <button
-              onClick={() => setShowOptions(!showOptions)}
+              onClick={() => setOptionsOpen(true)}
               className="p-1 rounded-full hover:bg-neutral-100 transition-colors"
             >
               <MoreVertical className="size-5 text-neutral-500" />
             </button>
-            {showOptions && (
-              <div className="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border border-neutral-200 z-10 py-1">
-                <button
-                  className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"
-                  onClick={() => setShowOptions(false)}
-                >
-                  <Edit className="size-4 mr-2" />
-                  Edit
-                </button>
-                <div className="h-px bg-neutral-200 my-1 mx-2" />
-                <button
-                  className="w-full flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
-                  onClick={() => setShowOptions(false)}
-                >
-                  <Trash2 className="size-4 mr-2" />
-                  Delete
-                </button>
-              </div>
-            )}
           </div>
         )}
       </div>
@@ -118,9 +102,12 @@ function AnnouncementCard({
             </div>
           ))}
         {Areas && Areas.length > 5 && (
-          <div className="text-[10px] text-blue-700 bg-blue-500/10 rounded-lg p-1 flex justify-center items-center gap-1 w-full">
+          <button
+            onClick={() => setAreasPopupOpen(true)}
+            className="text-[10px] text-blue-700 bg-blue-500/10 rounded-lg p-1 flex justify-center items-center gap-1 w-full hover:bg-blue-500/20 transition"
+          >
             <span>{Areas.length - 5} more ...</span>
-          </div>
+          </button>
         )}
         {/* Section */}
         {Areas &&
@@ -134,10 +121,13 @@ function AnnouncementCard({
               <span className="line-clamp-1">{section}</span>
             </div>
           ))}
-        {Areas && Areas.length < 2 && sections.length > 10 && sections && (
-          <div className="text-[10px] text-neutral-500 font-semibold bg-neutral-500/15 rounded-lg p-1 flex justify-center items-center gap-1 w-full">
+        {Areas && Areas.length < 2 && sections && sections.length > 5 && (
+          <button
+            onClick={() => setSectionsPopupOpen(true)}
+            className="text-[10px] text-neutral-500 font-semibold bg-neutral-500/15 rounded-lg p-1 flex justify-center items-center gap-1 w-full hover:bg-neutral-500/25 transition"
+          >
             <span>{sections.length - 5} more ...</span>
-          </div>
+          </button>
         )}
       </div>
 
@@ -238,6 +228,68 @@ function AnnouncementCard({
           </div>
         </div>
       )}
+      <Popup isOpen={optionsOpen} onClose={() => setOptionsOpen(false)}>
+        <div className="flex flex-col space-y-4">
+          <h2 className="text-lg font-semibold">Manage Announcement</h2>
+
+          <button
+            className="flex items-center gap-2 p-3 rounded-lg hover:bg-neutral-100 transition"
+            onClick={() => {
+              setOptionsOpen(false);
+              console.log("Edit clicked");
+            }}
+          >
+            <Edit className="size-4" />
+            Edit Announcement
+          </button>
+
+          <button
+            className="flex items-center gap-2 p-3 rounded-lg text-red-600 hover:bg-red-50 transition"
+            onClick={() => {
+              setOptionsOpen(false);
+              console.log("Delete clicked");
+            }}
+          >
+            <Trash2 className="size-4" />
+            Delete Announcement
+          </button>
+        </div>
+      </Popup>
+      <Popup isOpen={areasPopupOpen} onClose={() => setAreasPopupOpen(false)}>
+        <div className="space-y-4">
+          <h2 className="text-lg font-semibold">All Areas</h2>
+
+          <div className="flex flex-wrap gap-2">
+            {Areas.map((area, i) => (
+              <div
+                key={i}
+                className="px-3 py-2 text-sm bg-blue-100 text-blue-700 rounded-lg"
+              >
+                {area}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Popup>
+      <Popup
+        isOpen={sectionsPopupOpen}
+        onClose={() => setSectionsPopupOpen(false)}
+      >
+        <div className="space-y-4">
+          <h2 className="text-lg font-semibold">All Sections</h2>
+
+          <div className="flex flex-wrap gap-2">
+            {sections.map((section, i) => (
+              <div
+                key={i}
+                className="px-3 py-2 text-sm bg-neutral-200 text-neutral-700 rounded-lg"
+              >
+                {section}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Popup>
     </div>
   );
 }
